@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Void Canvas: Masterpiece Edition</title>
+    <title>The Void Canvas: Voxel Glitch Edition</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', Courier, monospace; }
         canvas { display: block; width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; }
@@ -19,6 +19,7 @@
         .instructions { background: rgba(0, 0, 0, 0.6); border-left: 3px solid #ff33cc; padding: 15px; color: #e0e0e0; backdrop-filter: blur(4px); }
         .highlight-blue { color: #3399ff; font-weight: bold; }
         .highlight-pink { color: #ff33cc; font-weight: bold; }
+        .highlight-red { color: #ff0055; font-weight: bold; text-shadow: 0 0 5px red;}
 
         .controls {
             background: rgba(10, 10, 15, 0.85); border: 1px solid #3399ff; padding: 20px; 
@@ -55,7 +56,7 @@
         <div class="left-panel">
             <div class="header">
                 <h1>The Void Canvas</h1>
-                <p>Sandbox Engine v4.0 [BLOOM & MAGMA]</p>
+                <p>Sandbox Engine v5.0 [MALWARE INJECTED]</p>
             </div>
             <div class="instructions">
                 <p><span class="highlight-blue">LEFT CLICK + DRAG:</span> Orbit Camera</p>
@@ -69,6 +70,10 @@
             <h3>Physics & Camera</h3>
             <div class="control-group"><label>Camera Zoom</label><input type="range" id="zoomSlider" min="1.5" max="8.0" step="0.1" value="4.0"></div>
             <div class="control-group"><label>Shape Morph</label><input type="range" id="morphSlider" min="0" max="1" step="0.01" value="0"></div>
+            
+            <!-- THE NEW MALWARE SLIDER -->
+            <div class="control-group"><label class="highlight-red">Malware Payload (Voxelize)</label><input type="range" id="malwareSlider" min="0" max="1" step="0.01" value="0"></div>
+            
             <div class="control-group"><label>Geometry Ripple</label><input type="range" id="curseSlider" min="0" max="2" step="0.01" value="1"></div>
             <div class="control-group"><label>Lens Glitch</label><input type="range" id="glitchSlider" min="0" max="5" step="0.1" value="1.0"></div>
             <div class="control-group checkbox-group"><input type="checkbox" id="fractalToggle"><label style="margin:0; font-weight:bold; color:#3399ff;">Fractal Grid</label></div>

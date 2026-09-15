@@ -6,14 +6,13 @@ if (!gl) alert("WebGL2 is not supported by your browser.");
 const micBtn = document.getElementById('micBtn');
 const zoomSlider = document.getElementById('zoomSlider');
 const morphSlider = document.getElementById('morphSlider');
+const malwareSlider = document.getElementById('malwareSlider'); // NEW
 const curseSlider = document.getElementById('curseSlider');
 const glitchSlider = document.getElementById('glitchSlider');
 const fractalToggle = document.getElementById('fractalToggle');
 const bgColorPicker = document.getElementById('bgColor');
 const objColorPicker = document.getElementById('objColor');
 const lightColorPicker = document.getElementById('lightColor');
-
-// NEW UI ELEMENTS
 const textureSlider = document.getElementById('textureSlider');
 const magmaToggle = document.getElementById('magmaToggle');
 const bloomSlider = document.getElementById('bloomSlider');
@@ -40,7 +39,6 @@ window.addEventListener('mousemove', (e) => {
 
 function hexToRGB(hex) { return [parseInt(hex.slice(1, 3), 16)/255, parseInt(hex.slice(3, 5), 16)/255, parseInt(hex.slice(5, 7), 16)/255]; }
 
-// Audio Setup
 let audioCtx, analyser, dataArray;
 let isAudioInitialized = false, isAudioPlaying = false;
 let smoothBass = 0.0, smoothTreble = 0.0;
@@ -96,15 +94,13 @@ async function init() {
         time: gl.getUniformLocation(program, "u_time"), res: gl.getUniformLocation(program, "u_resolution"),
         mouse: gl.getUniformLocation(program, "u_mouse"), rot: gl.getUniformLocation(program, "u_cameraRot"),
         zoom: gl.getUniformLocation(program, "u_zoom"), morph: gl.getUniformLocation(program, "u_morph"),
+        malware: gl.getUniformLocation(program, "u_malware"), // NEW
         curse: gl.getUniformLocation(program, "u_curse"), glitch: gl.getUniformLocation(program, "u_glitch"),
         fractal: gl.getUniformLocation(program, "u_fractal"), bgCol: gl.getUniformLocation(program, "u_bgColor"),
         objCol: gl.getUniformLocation(program, "u_objColor"), lightCol: gl.getUniformLocation(program, "u_lightColor"),
         aBass: gl.getUniformLocation(program, "u_audioBass"), aTreble: gl.getUniformLocation(program, "u_audioTreble"),
-        
-        // NEW LOCATIONS
         texInt: gl.getUniformLocation(program, "u_textureIntensity"),
-        magma: gl.getUniformLocation(program, "u_magmaMode"),
-        bloom: gl.getUniformLocation(program, "u_bloom")
+        magma: gl.getUniformLocation(program, "u_magmaMode"), bloom: gl.getUniformLocation(program, "u_bloom")
     };
 
     function render(time) {
@@ -123,13 +119,14 @@ async function init() {
         gl.uniform1f(locs.time, time * 0.001); gl.uniform2f(locs.res, canvas.width, canvas.height);
         gl.uniform2f(locs.mouse, mouseX, mouseY); gl.uniform2f(locs.rot, cameraRotX, cameraRotY);
         gl.uniform1f(locs.zoom, parseFloat(zoomSlider.value)); gl.uniform1f(locs.morph, parseFloat(morphSlider.value));
+        
+        gl.uniform1f(locs.malware, parseFloat(malwareSlider.value)); // SEND MALWARE
+        
         gl.uniform1f(locs.curse, parseFloat(curseSlider.value)); gl.uniform1f(locs.glitch, parseFloat(glitchSlider.value));
         gl.uniform1f(locs.fractal, fractalToggle.checked ? 1.0 : 0.0);
         gl.uniform3fv(locs.bgCol, hexToRGB(bgColorPicker.value)); gl.uniform3fv(locs.objCol, hexToRGB(objColorPicker.value));
         gl.uniform3fv(locs.lightCol, hexToRGB(lightColorPicker.value));
         gl.uniform1f(locs.aBass, smoothBass); gl.uniform1f(locs.aTreble, smoothTreble);
-
-        // SEND NEW UNIFORMS
         gl.uniform1f(locs.texInt, parseFloat(textureSlider.value));
         gl.uniform1f(locs.magma, magmaToggle.checked ? 1.0 : 0.0);
         gl.uniform1f(locs.bloom, parseFloat(bloomSlider.value));
