@@ -5,7 +5,7 @@
 Forget traditional polygons and triangles. *The Void Canvas* is a real-time Raymarching engine powered by Signed Distance Fields (SDFs). There are no external 3D libraries like Three.js used here—every pixel, shadow, reflection, and glowing neon edge is calculated mathematically in a custom GLSL fragment shader.
 
 ## 🚀 Live Demo
-**Play with the engine here:** `[Insert your GitHub Pages URL here]`
+**Play with the engine here:** `(https://github.com/hadyamasha/void-canvas.git]`
 
 *(Note: Click "Engage Microphone" and play some music with heavy bass to see the audio reactivity in action!)*
 
