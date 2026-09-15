@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Void Canvas: Masterpiece Edition</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: 'Courier New', Courier, monospace; }
+        canvas { display: block; width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; }
+
+        #ui-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;
+            pointer-events: none; display: flex; justify-content: space-between; padding: 2rem; box-sizing: border-box;
+        }
+
+        .left-panel { display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+        .header h1 { color: #fff; margin: 0; font-size: 2rem; letter-spacing: 4px; text-shadow: 0 0 10px rgba(255,51,204,0.8), 0 0 20px rgba(51,153,255,0.8); }
+        .header p { color: #a0a0a0; margin-top: 5px; font-size: 0.9rem; }
+        .instructions { background: rgba(0, 0, 0, 0.6); border-left: 3px solid #ff33cc; padding: 15px; color: #e0e0e0; backdrop-filter: blur(4px); }
+        .highlight-blue { color: #3399ff; font-weight: bold; }
+        .highlight-pink { color: #ff33cc; font-weight: bold; }
+
+        .controls {
+            background: rgba(10, 10, 15, 0.85); border: 1px solid #3399ff; padding: 20px; 
+            border-radius: 8px; color: #fff; backdrop-filter: blur(5px);
+            pointer-events: auto; width: 280px; max-height: 90vh; overflow-y: auto;
+        }
+        .controls h3 { margin: 0 0 15px 0; color: #3399ff; border-bottom: 1px solid #3399ff; padding-bottom: 5px; font-size: 1.1rem; }
+        .controls h3.env { color: #ff33cc; border-bottom: 1px solid #ff33cc; margin-top: 25px; }
+        
+        #micBtn {
+            background: transparent; border: 2px solid #ff33cc; color: #ff33cc;
+            padding: 10px; width: 100%; font-family: inherit; font-weight: bold; font-size: 1rem;
+            cursor: pointer; text-transform: uppercase; margin-bottom: 20px; transition: 0.3s;
+        }
+        #micBtn:hover { background: #ff33cc; color: #000; }
+
+        .control-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+        .color-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .control-group label, .color-group label { font-size: 0.85rem; margin-bottom: 5px; color: #ccc;}
+        
+        input[type=range] { width: 100%; cursor: pointer; }
+        input[type=checkbox] { cursor: pointer; transform: scale(1.2); margin-right: 10px;}
+        input[type=color] { background: none; border: none; cursor: pointer; width: 40px; height: 30px; padding: 0; }
+        .checkbox-group { flex-direction: row; align-items: center; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #3399ff; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <canvas id="glcanvas"></canvas>
+    
+    <div id="ui-layer">
+        <div class="left-panel">
+            <div class="header">
+                <h1>The Void Canvas</h1>
+                <p>Sandbox Engine v4.0 [BLOOM & MAGMA]</p>
+            </div>
+            <div class="instructions">
+                <p><span class="highlight-blue">LEFT CLICK + DRAG:</span> Orbit Camera</p>
+                <p><span class="highlight-pink">MOVE CURSOR:</span> Wield Eraser</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="micBtn">Engage Microphone</button>
+
+            <h3>Physics & Camera</h3>
+            <div class="control-group"><label>Camera Zoom</label><input type="range" id="zoomSlider" min="1.5" max="8.0" step="0.1" value="4.0"></div>
+            <div class="control-group"><label>Shape Morph</label><input type="range" id="morphSlider" min="0" max="1" step="0.01" value="0"></div>
+            <div class="control-group"><label>Geometry Ripple</label><input type="range" id="curseSlider" min="0" max="2" step="0.01" value="1"></div>
+            <div class="control-group"><label>Lens Glitch</label><input type="range" id="glitchSlider" min="0" max="5" step="0.1" value="1.0"></div>
+            <div class="control-group checkbox-group"><input type="checkbox" id="fractalToggle"><label style="margin:0; font-weight:bold; color:#3399ff;">Fractal Grid</label></div>
+
+            <h3 class="env">Environment & Textures</h3>
+            <div class="control-group"><label>Cinematic Bloom (Glow)</label><input type="range" id="bloomSlider" min="0" max="1" step="0.01" value="0.8"></div>
+            <div class="control-group"><label>3D Texture Intensity</label><input type="range" id="textureSlider" min="0" max="1" step="0.01" value="0"></div>
+            <div class="control-group checkbox-group"><input type="checkbox" id="magmaToggle"><label style="margin:0; font-weight:bold; color:#ff9900;">Magma Mode</label></div>
+
+            <div class="color-group"><label>Background Color</label><input type="color" id="bgColor" value="#050508"></div>
+            <div class="color-group"><label>Object Color</label><input type="color" id="objColor" value="#3399ff"></div>
+            <div class="color-group"><label>Light Color</label><input type="color" id="lightColor" value="#ffffff"></div>
+        </div>
+    </div>
+
+    <script type="module" src="engine.js"></script>
+</body>
+</html>
